@@ -1,11 +1,5 @@
-export const metadata = {
-  title: "Home",
+const Homepage = () => {
+  return <>Nextstore</>;
 };
 
-export default function Home() {
-  return (
-    <div>
-      <p>Nextstore</p>
-    </div>
-  );
-}
+export default Homepage;
