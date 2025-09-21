@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/* ✅ Custom Utilities */
+@utility wrapper {
+  @apply max-w-7xl w-full p-5 md:px-10 lg:mx-auto;
+}
+
+@utility flex-start {
+  @apply flex items-center justify-start;
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+
+@utility flex-between {
+  @apply flex items-center justify-between;
+}
+
+@utility h1-bold {
+  @apply text-3xl lg:text-4xl font-bold;
+}
+
+@utility h2-bold {
+  @apply text-2xl lg:text-3xl font-bold;
+}
+
+@utility h3-bold {
+  @apply text-xl lg:text-2xl font-bold;
+}
+
+
