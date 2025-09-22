@@ -6,7 +6,8 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  // comment code dibawah, sebelum di generate -> npx prisma generate
+  // output   = "../lib/generated/prisma"
 }
 
 datasource db {

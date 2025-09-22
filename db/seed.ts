@@ -1,5 +1,5 @@
-// import { PrismaClient } from '@prisma/client';
-import { PrismaClient } from '../lib/generated/prisma';
+// import { PrismaClient } from '../lib/generated/prisma';
+import { PrismaClient } from '@prisma/client';
 import sampleData from './sample-data';
 // import { hash } from '@/lib/encrypt';
 

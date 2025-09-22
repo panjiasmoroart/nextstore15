@@ -18,9 +18,10 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "lib/generated/**",   // 👈 abaikan hasil generate Prisma
     ],
-     rules: {
-      "@typescript-eslint/no-explicit-any": "off",
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off"
     },
   },
 ];
