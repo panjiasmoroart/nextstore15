@@ -8,6 +8,9 @@ generator client {
   provider = "prisma-client-js"
   // comment code dibawah, sebelum di generate -> npx prisma generate
   // output   = "../lib/generated/prisma"
+
+  // config Neon Serverless Driver (@neondatabase/serverless)
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {

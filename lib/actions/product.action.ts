@@ -2,11 +2,12 @@
 // jika jika kita menyimpan lib di local
 // import { PrismaClient } from '@/lib/generated/prisma';
 // import { convertToPlainObject } from '../utils';
-import { PrismaClient } from '@prisma/client'
+// import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/db/prisma';
 import { LATEST_PRODUCTS_LIMIT } from '../constants';
 import { ProductTypes } from "@/types";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 // Get latest products
 // export async function getLatestProducts() {
