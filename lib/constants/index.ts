@@ -12,6 +12,6 @@ export const SAMPLE_ADMIN_PASS = process.env.SAMPLE_ADMIN_PASS;
 export const SAMPLE_USER_PASS = process.env.SAMPLE_USER_PASS;
 
 export const signInDefaultValues = {
-  email: 'admin@example.com',
-  password: process.env.SAMPLE_ADMIN_PASS,
+  email: '',
+  password: "",
 };
