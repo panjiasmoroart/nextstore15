@@ -49,7 +49,7 @@ const AddToCart = ({ item }: { item: CartItem }) => {
           ×
         </button>
 
-        <div className="flex items-center px-6 py-3">
+        <div className="flex items-center px-4 py-6">
           <div className="text-sm font-medium">{item.name} - added to cart</div>
 
           <Button
@@ -68,6 +68,7 @@ const AddToCart = ({ item }: { item: CartItem }) => {
 
   return (
     <Button className="w-full" type="button" onClick={handleAddToCart}>
+      <Plus className="w-4 h-4" />
       Add To Cart
     </Button>
   );
