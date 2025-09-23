@@ -4,7 +4,6 @@ import { prisma } from '@/db/prisma';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compareSync } from 'bcrypt-ts-edge';
 import type { NextAuthConfig } from 'next-auth';
-import { getMaxListeners } from 'events';
 
 export const config = {
   pages: {
