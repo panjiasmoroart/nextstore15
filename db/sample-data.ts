@@ -1,4 +1,21 @@
+import { SAMPLE_ADMIN_PASS, SAMPLE_USER_PASS } from '@/lib/constants';
+import { hashSync } from 'bcrypt-ts-edge';
+
 const sampleData = {
+  users: [
+    {
+      name: 'Admin',
+      email: 'admin@example.com',
+      password: hashSync(SAMPLE_ADMIN_PASS!, 10),
+      role: 'admin',
+    },
+    {
+      name: 'Shigeru',
+      email: 'user@example.com',
+      password: hashSync(SAMPLE_USER_PASS!, 10),
+      role: 'user',
+    },
+  ],
   products: [
     {
       name: 'Polo Sporting Stretch Shirt',
