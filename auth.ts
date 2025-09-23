@@ -56,6 +56,7 @@ export const config = {
   callbacks: {
     async session({ session, user, trigger, token }) {
       // Set the user ID from the token
+      // pastikan token.sub ada sebelum meng-assign-nya
       session.user.id = token.sub ?? '';
 
       // If there is an update, set the user name
