@@ -4,6 +4,7 @@ import { prisma } from '@/db/prisma';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compareSync } from 'bcrypt-ts-edge';
 import type { NextAuthConfig } from 'next-auth';
+import { getMaxListeners } from 'events';
 
 export const config = {
   pages: {
@@ -38,13 +39,15 @@ export const config = {
             user.password
           );
 
+          // console.log('user', user)
+
           // If password is correct, return user
           if (isMatch) {
             return {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: user.role,
+              role: user?.role,
             };
           }
         }
@@ -54,10 +57,32 @@ export const config = {
     }),
   ],
   callbacks: {
+    async jwt({ token, user, trigger, session }) {
+      // Assign user fields to token
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+
+        // If user has no name then use the email
+        if (user.name === 'NO_NAME') {
+          // kotaro@gmail.com -> kotaro
+          token.name = user.email!.split('@')[0];
+
+          // Update database to reflect the token name
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { name: token.name },
+          });
+        }
+      }
+
+      return token
+    },
     async session({ session, user, trigger, token }) {
       // Set the user ID from the token
-      // pastikan token.sub ada sebelum meng-assign-nya
-      session.user.id = token.sub ?? '';
+      session.user.id = token.sub;
+      session.user.role = token.role;
+      session.user.name = token.name;
 
       // If there is an update, set the user name
       if (trigger === 'update') {

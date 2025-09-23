@@ -36,7 +36,6 @@ export function formatNumberWithDecimal(num: number): string {
 }
 
 // Format errors
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 // menghindary any, memverifikasi tipe dengan cara yang aman instanceof, dsb
 export function formatError(
   error: unknown
