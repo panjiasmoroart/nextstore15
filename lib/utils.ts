@@ -61,3 +61,20 @@ export function formatError(
   // Jika bukan tipe-tipe di atas, maka kembalikan pesan default agar tidak melempar error dari formatError itu sendiri
   return 'An unknown error occurred.';
 }
+
+// console.log(round2(2.345));       // Output: 2.35
+// console.log(round2(2.344));       // Output: 2.34
+// console.log(round2("5.6789"));    // Output: 5.68
+// console.log(round2("100.234"));   // Output: 100.23
+// console.log(round2("7"));         // Output: 7
+
+// Round number to 2 decimal places
+export function round2(value: number | string) {
+  if (typeof value === 'number') {
+    return Math.round((value + Number.EPSILON) * 100) / 100;
+  } else if (typeof value === 'string') {
+    return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+  } else {
+    throw new Error('Value is not a number or string');
+  }
+}
