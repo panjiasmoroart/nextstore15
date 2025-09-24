@@ -39,6 +39,7 @@ const AddToCart = ({ item }: { item: CartItem }) => {
       return;
     }
 
+    // Handle success add to cart
     toast.custom((t) => (
       <div className="relative bg-white dark:bg-neutral-900 text-black dark:text-white rounded-md shadow-lg border border-gray-200 dark:border-neutral-700">
         <button
@@ -50,7 +51,7 @@ const AddToCart = ({ item }: { item: CartItem }) => {
         </button>
 
         <div className="flex items-center px-4 py-6">
-          <div className="text-sm font-medium">{item.name} - added to cart</div>
+          <div className="text-sm font-medium">{res.message}</div>
 
           <Button
             className="ml-auto bg-primary text-white hover:bg-gray-800"

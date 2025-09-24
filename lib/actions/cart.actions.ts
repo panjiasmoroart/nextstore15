@@ -7,6 +7,7 @@ import { auth } from '@/auth';
 import { prisma } from '@/db/prisma';
 import { cartItemSchema, insertCartSchema } from '../validators';
 import { revalidatePath } from 'next/cache';
+import { Prisma } from '@prisma/client';
 
 // Calculate cart prices
 const calcPrice = (items: CartItem[]) => {
@@ -56,7 +57,10 @@ export async function addItemToCart(data: CartItem) {
     //   'Product found : ': product
     // })
 
+    // cart not exist
     if (!cart) {
+      // console.log('1 -> masuk kesini');
+
       const newCart = insertCartSchema.parse({
         userId: userId,
         items: [item],
@@ -77,15 +81,49 @@ export async function addItemToCart(data: CartItem) {
         message: `${product.name} added to cart`,
       };
     } else {
-      console.log('update cart')
-    }
+      // Check if item is already in cart, productId db === productId cart
+      const existItem = (cart.items as CartItem[]).find(
+        (x) => x.productId === item.productId
+      );
 
+      // cartItems exists tambah quantity
+      if (existItem) {
+        // Check stock 
+        if (product.stock < existItem.qty + 1) {
+          throw new Error('Not enough stock');
+        }
 
+        // Increase the quantity, ! non-null assertion operator (dipastikan nilainya pasti ada) 
+        (cart.items as CartItem[]).find(
+          (x) => x.productId === item.productId
+        )!.qty = existItem.qty + 1;
+      } else {
+        // tambah items baru jika itemnya beda
+        // console.log('2 -> masuk kesini');
+        // If item does not exist in cart
+        // Check stock 
+        if (product.stock < 1) throw new Error('Not enough stock');
 
+        // Add item to the cart.items
+        cart.items.push(item);
+      }
 
-    return {
-      success: true,
-      message: 'Item added to cart',
+      // Update to database 
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: cart.items as Prisma.CartUpdateitemsInput[],
+          ...calcPrice(cart.items as CartItem[])
+        }
+      })
+
+      revalidatePath(`/product/${product.slug}`);
+
+      return {
+        success: true,
+        message: `${product.name} ${existItem ? 'updated in' : 'added to'
+          } cart`,
+      };
     }
   } catch (error) {
     return {
