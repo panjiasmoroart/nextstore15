@@ -19,7 +19,7 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
 
       // Handle error
       if (!res.success) {
-        toast.custom((t) => (
+        toast.custom(() => (
           <div className="bg-red-600 text-white px-4 py-3 rounded-md shadow-md flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
