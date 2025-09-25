@@ -13,13 +13,14 @@ import { ShippingAddress } from "@/types";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ControllerRenderProps, useForm } from "react-hook-form";
+import { ControllerRenderProps, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { shippingAddressSchema } from "@/lib/validators";
 import { shippingAddressDefaultValues } from "@/lib/constants";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Loader } from "lucide-react";
+import { updateUserAddress } from "@/lib/actions/user.actions";
 
 const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
   const router = useRouter();
@@ -27,12 +28,21 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
 
   const form = useForm<z.infer<typeof shippingAddressSchema>>({
     resolver: zodResolver(shippingAddressSchema),
-    defaultValues: shippingAddressDefaultValues,
+    defaultValues: address || shippingAddressDefaultValues,
   });
 
-  const onSubmit = async (values: any) => {
-    console.log(values);
-    toast.success(JSON.stringify(values));
+  const onSubmit: SubmitHandler<z.infer<typeof shippingAddressSchema>> = async (
+    values
+  ) => {
+    startTransition(async () => {
+      const res = await updateUserAddress(values);
+
+      if (!res.success) {
+        toast.success(res.message);
+      }
+
+      router.push("/payment-method");
+    });
   };
 
   return (
@@ -50,6 +60,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
           >
             <div className="flex flex-col md:flex-row gap-5">
               <FormField
+                disabled={isPending}
                 control={form.control}
                 name="fullName"
                 render={function ({
@@ -74,6 +85,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
             </div>
             <div className="flex flex-col md:flex-row gap-5">
               <FormField
+                disabled={isPending}
                 control={form.control}
                 name="streetAddress"
                 render={function ({
@@ -98,6 +110,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
             </div>
             <div className="flex flex-col md:flex-row gap-5">
               <FormField
+                disabled={isPending}
                 control={form.control}
                 name="city"
                 render={function ({
@@ -122,6 +135,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
             </div>
             <div className="flex flex-col md:flex-row gap-5">
               <FormField
+                disabled={isPending}
                 control={form.control}
                 name="postalCode"
                 render={function ({
@@ -146,6 +160,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
             </div>
             <div className="flex flex-col md:flex-row gap-5">
               <FormField
+                disabled={isPending}
                 control={form.control}
                 name="country"
                 render={function ({

@@ -29,9 +29,24 @@ const PageShippingAddress = async () => {
   //   throw new Error("Shipping address is missing");
   // }
 
+  // misalnya di dalam komponen:
+  const parsedAddress: ShippingAddress =
+    typeof user.address === "object" && user.address !== null
+      ? // ✅ jika address sudah object, aman
+        (user.address as ShippingAddress)
+      : {
+          // ❌ address berupa string atau null →
+          // isi ke streetAddress, lainnya kosong
+          fullName: "",
+          streetAddress: typeof user.address === "string" ? user.address : "",
+          city: "",
+          postalCode: "",
+          country: "",
+        };
+
   return (
     <>
-      <ShippingAddressForm address={user.address as ShippingAddress} />
+      <ShippingAddressForm address={parsedAddress} />
     </>
   );
 };
