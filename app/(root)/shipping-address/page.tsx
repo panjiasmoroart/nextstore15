@@ -3,12 +3,14 @@ import { getMyCart } from "@/lib/actions/cart.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import ShippingAddressForm from "./shipping-address-form";
+import { ShippingAddress } from "@/types";
 
 export const metadata: Metadata = {
   title: "Shipping Address",
 };
 
-const ShippingAddress = async () => {
+const PageShippingAddress = async () => {
   const cart = await getMyCart();
 
   if (!cart || cart.items.length === 0) redirect("/cart");
@@ -23,7 +25,15 @@ const ShippingAddress = async () => {
   // ! Non-null assertion operator, dipastikan userId ada
   const user = await getUserById(userId!);
 
-  return <div>ShippingAddress {JSON.stringify(user)}</div>;
+  // if (!user.address) {
+  //   throw new Error("Shipping address is missing");
+  // }
+
+  return (
+    <>
+      <ShippingAddressForm address={user.address as ShippingAddress} />
+    </>
+  );
 };
 
-export default ShippingAddress;
+export default PageShippingAddress;

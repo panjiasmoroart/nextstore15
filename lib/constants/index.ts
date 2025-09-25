@@ -24,9 +24,9 @@ export const signUpDefaultValues = {
 };
 
 export const shippingAddressDefaultValues = {
-  fullName: '',
-  streetAddress: '',
-  city: '',
-  postalCode: '',
-  country: '',
+  fullName: 'Panji Asmoro',
+  streetAddress: 'Jl. Pendekar Biru',
+  city: 'Depok',
+  postalCode: '17411',
+  country: 'Indoensia',
 };
