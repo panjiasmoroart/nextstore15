@@ -39,6 +39,7 @@ const OrderDetailsPage = async (props: {
           price: Number(item.price),
         })),
       }}
+      paypalClientId={process.env.PAYPAL_CLIENT_ID! || "sb"}
     />
   );
 };
