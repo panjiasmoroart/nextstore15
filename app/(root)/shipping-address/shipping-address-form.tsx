@@ -38,7 +38,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
       const res = await updateUserAddress(values);
 
       if (!res.success) {
-        toast.success(res.message);
+        toast.error(res.message);
       }
 
       router.push("/payment-method");
