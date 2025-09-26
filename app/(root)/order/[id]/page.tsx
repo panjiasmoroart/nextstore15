@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { getOrderById } from "@/lib/actions/order.actions";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
+import OrderDetailsTable from "./order-details-table";
+import { ShippingAddress } from "@/types";
 
 export const metadata: Metadata = {
   title: "Order Details",
@@ -23,7 +25,22 @@ const OrderDetailsPage = async (props: {
     return redirect("/unauthorized");
   }
 
-  return <div>OrderDetailsPage [{JSON.stringify(order)}]</div>;
+  return (
+    <OrderDetailsTable
+      order={{
+        ...order,
+        shippingAddress: order.shippingAddress as ShippingAddress,
+        itemsPrice: Number(order.itemsPrice),
+        shippingPrice: Number(order.shippingPrice),
+        taxPrice: Number(order.taxPrice),
+        totalPrice: Number(order.totalPrice),
+        orderitems: order.orderitems.map((item) => ({
+          ...item,
+          price: Number(item.price),
+        })),
+      }}
+    />
+  );
 };
 
 export default OrderDetailsPage;
