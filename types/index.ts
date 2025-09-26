@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { cartItemSchema, insertCartSchema, insertOrderItemSchema, insertOrderSchema, insertProductSchema, shippingAddressSchema } from '@/lib/validators';
+import { cartItemSchema, insertCartSchema, insertOrderItemSchema, insertOrderSchema, insertProductSchema, paymentResultSchema, shippingAddressSchema } from '@/lib/validators';
 import { Prisma } from "@prisma/client";
 
 export type ProductPayload = Prisma.ProductGetPayload<{}>;
@@ -42,4 +42,5 @@ export type Order = z.infer<typeof insertOrderSchema> & {
   user: { name: string; email: string };
 };
 export type OrderItem = z.infer<typeof insertOrderItemSchema>;
+export type PaymentResult = z.infer<typeof paymentResultSchema>;
 
