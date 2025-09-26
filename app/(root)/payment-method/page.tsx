@@ -12,15 +12,15 @@ export const metadata: Metadata = {
 
 const PaymentMethodPage = async () => {
   const cart = await getMyCart();
-
-  if (!cart || cart.items.length === 0) redirect("/");
-
   const session = await auth();
   const userId = session?.user?.id;
 
   if (!userId) throw new Error("User not found");
 
   const user = await getUserById(userId);
+
+  if (!cart || cart.items.length === 0) redirect("/cart");
+  if (!user.address) redirect("/shipping-address");
 
   return (
     <>
