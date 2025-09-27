@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from "@/lib/constants";
+import { DEFAULT_PAYMENT_METHODS, PAYMENT_METHODS } from "@/lib/constants";
 import { paymentMethodSchema } from "@/lib/validators";
 import {
   Form,
@@ -32,7 +32,7 @@ const PaymentMethodForm = ({
   const form = useForm<z.infer<typeof paymentMethodSchema>>({
     resolver: zodResolver(paymentMethodSchema),
     defaultValues: {
-      type: preferredPaymentMethod || DEFAULT_PAYMENT_METHOD,
+      type: preferredPaymentMethod || DEFAULT_PAYMENT_METHODS,
     },
   });
 

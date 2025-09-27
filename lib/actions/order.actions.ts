@@ -59,6 +59,8 @@ export async function createOrder() {
       totalPrice: cart.totalPrice,
     });
 
+    console.log(order);
+
     // Create a transaction to create order and order items in database
     const insertedOrderId = await prisma.$transaction(async (tx) => {
       // Create order 
