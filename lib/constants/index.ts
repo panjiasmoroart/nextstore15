@@ -31,10 +31,18 @@ export const shippingAddressDefaultValues = {
   country: '',
 };
 
+// export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
+//   ? process.env.PAYMENT_METHODS.split(',')
+//   : ['PayPal', 'Stripe', 'CashOnDelivery'];
+// export const DEFAULT_PAYMENT_METHODS =
+//   process.env.DEFAULT_PAYMENT_METHODS || 'PayPal';
+
 export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
-  ? process.env.PAYMENT_METHODS.split(', ')
+  ? process.env.PAYMENT_METHODS.split(',').map((m) => m.trim())
   : ['PayPal', 'Stripe', 'CashOnDelivery'];
-export const DEFAULT_PAYMENT_METHODS =
-  process.env.DEFAULT_PAYMENT_METHODS || 'PayPal';
+
+export const DEFAULT_PAYMENT_METHODS = process.env.DEFAULT_PAYMENT_METHODS?.trim() || 'PayPal';
+
+
 
 export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 12;

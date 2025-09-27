@@ -8,6 +8,7 @@ import { hashSync } from 'bcrypt-ts-edge';
 import { formatError } from "../utils";
 import { ShippingAddress } from "@/types";
 import z from "zod";
+import { revalidatePath } from "next/cache";
 // import { ZodError } from 'zod';
 // import { Prisma } from '@prisma/client';
 
@@ -129,6 +130,8 @@ export async function updateUserPaymentMethod(
       where: { id: currentUser.id },
       data: { paymentMethod: paymentMethod.type },
     });
+
+    revalidatePath('/place-order');
 
     return {
       success: true,
