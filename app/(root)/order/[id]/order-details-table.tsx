@@ -25,6 +25,16 @@ import {
 } from "@/lib/actions/order.actions";
 import { toast } from "sonner";
 
+type OrderItem = {
+  image: string;
+  name: string;
+  slug: string;
+  orderId: string;
+  productId: string;
+  qty: number;
+  price: string;
+};
+
 const OrderDetailsTable = ({
   order,
   paypalClientId,
