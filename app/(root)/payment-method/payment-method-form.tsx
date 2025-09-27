@@ -32,7 +32,7 @@ const PaymentMethodForm = ({
   const form = useForm<z.infer<typeof paymentMethodSchema>>({
     resolver: zodResolver(paymentMethodSchema),
     defaultValues: {
-      type: preferredPaymentMethod || DEFAULT_PAYMENT_METHODS,
+      type: DEFAULT_PAYMENT_METHODS,
     },
   });
 
