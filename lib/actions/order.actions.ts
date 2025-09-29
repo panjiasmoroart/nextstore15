@@ -336,7 +336,6 @@ export async function getOrderSummary() {
     take: 6,
   });
 
-
   return {
     ordersCount,
     productsCount,
