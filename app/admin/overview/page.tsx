@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 import { getOrderSummary } from "@/lib/actions/order.actions";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeDollarSign, Barcode, CreditCard, Users } from "lucide-react";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
@@ -15,18 +15,21 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import Charts from "./chart";
+import { requireAdmin } from "@/lib/auth-guard";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
 };
 
 const AdminOverviewPage = async () => {
-  const session = await auth();
+  // const session = await auth();
 
-  if (session?.user?.role !== "admin") {
-    console.log("User is not authorized");
-    redirect("/");
-  }
+  // if (session?.user?.role !== "admin") {
+  //   console.log("User is not authorized");
+  //   redirect("/");
+  // }
+
+  await requireAdmin();
 
   const summary = await getOrderSummary();
 
