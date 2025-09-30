@@ -1,7 +1,7 @@
 'use server';
 
 import { auth, signIn, signOut } from "@/auth";
-import { paymentMethodSchema, shippingAddressSchema, signInFormSchema, signUpFormSchema } from "../validators";
+import { paymentMethodSchema, shippingAddressSchema, signInFormSchema, signUpFormSchema, updateUserSchema } from "../validators";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { prisma } from '@/db/prisma';
 import { hashSync } from 'bcrypt-ts-edge';
@@ -216,3 +216,26 @@ export async function deleteUser(id: string) {
     };
   }
 }
+
+// Update a user
+export async function updateUser(user: z.infer<typeof updateUserSchema>) {
+  try {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        name: user.name,
+        role: user.role,
+      },
+    });
+
+    revalidatePath('/admin/users');
+
+    return {
+      success: true,
+      message: 'User updated successfully',
+    };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}
+
