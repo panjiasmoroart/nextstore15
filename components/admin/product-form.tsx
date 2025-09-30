@@ -22,6 +22,7 @@ import slugify from "slugify";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
+import { createProduct, updateProduct } from "@/lib/actions/product.actions";
 
 const ProductForm = ({
   type,
@@ -49,11 +50,33 @@ const ProductForm = ({
   });
 
   const onSubmit: SubmitHandler<ProductFormSchema> = async (values) => {
-    if (type === "Create") {
-      console.log("masuk");
-      toast.success("on progress");
-    } else {
-      console.log("Update form submitted", values);
+    try {
+      if (type === "Create") {
+        const res = await createProduct(values);
+        if (!res.success) {
+          toast.error(res.message);
+        }
+
+        toast.success(res.message);
+        router.push("/admin/products");
+      } else {
+        console.log("Update form submitted", values);
+        if (!productId) {
+          router.push("/admin/products");
+          return;
+        }
+
+        const res = await updateProduct({ ...values, id: productId });
+        if (!res.success) {
+          toast.error(res.message);
+        }
+
+        toast.success(res.message);
+        router.push("/admin/products");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      toast.error("Something went wrong while submitting the form.");
     }
   };
 
