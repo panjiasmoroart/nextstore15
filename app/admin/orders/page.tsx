@@ -55,6 +55,7 @@ const AdminOrdersPage = async (props: {
               <TableHead>TOTAL</TableHead>
               <TableHead>PAID</TableHead>
               <TableHead>DELIVERED</TableHead>
+              <TableHead>PAYMENT METHOD</TableHead>
               <TableHead>ACTIONS</TableHead>
             </TableRow>
           </TableHeader>
@@ -77,6 +78,7 @@ const AdminOrdersPage = async (props: {
                     ? formatDateTime(order.deliveredAt).dateTime
                     : "Not Delivered"}
                 </TableCell>
+                <TableCell>{order.paymentMethod}</TableCell>
                 <TableCell>
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/order/${order.id}`}>Details</Link>

@@ -40,6 +40,7 @@ const OrderDetailsPage = async (props: {
         })),
       }}
       paypalClientId={process.env.PAYPAL_CLIENT_ID! || "sb"}
+      isAdmin={session?.user?.role === "admin" || false}
     />
   );
 };
