@@ -33,7 +33,7 @@ const AdminOverviewPage = async () => {
 
   const summary = await getOrderSummary();
 
-  console.log(summary);
+  // console.log(summary);
 
   return (
     <div className="space-y-2">
