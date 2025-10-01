@@ -24,7 +24,7 @@ export interface ProductTypes {
   rating: string;
   numReviews: number;
   isFeatured: boolean;
-  banner: string;
+  banner: string | null;
   createdAt: string;
 }
 

@@ -62,11 +62,17 @@ export async function getAllProducts({
   limit = PAGE_SIZE,
   page,
   category,
+  price,
+  rating,
+  sort,
 }: {
   query: string;
   limit?: number;
   page: number;
   category?: string;
+  price?: string;
+  rating?: string;
+  sort?: string;
 }) {
   // Query filter
   const queryFilter: Prisma.ProductWhereInput =
@@ -78,7 +84,6 @@ export async function getAllProducts({
         } as Prisma.StringFilter,
       }
       : {};
-
 
   const data = await prisma.product.findMany({
     where: {
