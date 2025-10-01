@@ -85,9 +85,49 @@ export async function getAllProducts({
       }
       : {};
 
+  // Category filter
+  const categoryFilter = category && category !== 'all' ? { category } : {};
+
+  // Price filter
+  // price.split('-') -> ["100000", "500000"]
+  // Number(price.split('-')[0]) // 100000
+  // Number(price.split('-')[1]) // 500000
+  // Maka:
+  // priceFilter = {
+  //   price: {
+  //     gte: 100000,
+  //     lte: 500000
+  //   }
+  // }
+  // Artinya: Ambil produk yang harganya antara 100.000 sampai 500.000
+  // http://localhost:3000/search?price=10-50
+  const priceFilter: Prisma.ProductWhereInput =
+    price && price !== 'all'
+      ? {
+        price: {
+          gte: Number(price.split('-')[0]),
+          lte: Number(price.split('-')[1]),
+        },
+      }
+      : {};
+
+  // Rating filter
+  // http://localhost:3000/search?rating=4
+  const ratingFilter =
+    rating && rating !== 'all'
+      ? {
+        rating: {
+          gte: Number(rating),
+        },
+      }
+      : {};
+
   const data = await prisma.product.findMany({
     where: {
       ...queryFilter,
+      ...categoryFilter,
+      ...priceFilter,
+      ...ratingFilter,
     },
     orderBy: { createdAt: 'desc' },
     skip: (page - 1) * limit,
