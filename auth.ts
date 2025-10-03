@@ -28,7 +28,7 @@ export const config = {
         if (credentials == null) return null;
 
         // Find user in database
-        const user = await prisma.user.findFirst({
+        const user = await prisma?.user?.findFirst({
           where: {
             email: credentials.email as string,
           },
