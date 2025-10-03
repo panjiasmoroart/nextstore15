@@ -23,8 +23,8 @@ const AdminProductUpdatePage = async (props: {
 
   const transformedProduct = {
     ...product,
-    price: parseFloat(product.price),
-    rating: product.rating,
+    price: Number(product.price),
+    rating: product.rating.toString(),
   };
 
   return (
