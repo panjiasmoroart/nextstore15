@@ -3,10 +3,20 @@ import { getOrderById } from "@/lib/actions/order.actions";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import OrderDetailsTable from "./order-details-table";
-import { ShippingAddress } from "@/types";
+import { OrderItem, ShippingAddress } from "@/types";
 
 export const metadata: Metadata = {
   title: "Order Details",
+};
+
+type DBOrderItem = {
+  name: string;
+  slug: string;
+  orderId: string;
+  productId: string;
+  qty: number;
+  image: string;
+  price: string;
 };
 
 const OrderDetailsPage = async (props: {
@@ -34,7 +44,7 @@ const OrderDetailsPage = async (props: {
         shippingPrice: Number(order.shippingPrice),
         taxPrice: Number(order.taxPrice),
         totalPrice: Number(order.totalPrice),
-        orderitems: order.orderitems.map((item) => ({
+        orderitems: order.orderitems.map((item: DBOrderItem) => ({
           ...item,
           price: Number(item.price),
         })),
