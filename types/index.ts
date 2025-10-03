@@ -28,6 +28,16 @@ export interface ProductTypes {
   createdAt: string;
 }
 
+export type DBOrderItem = {
+  name: string;
+  slug: string;
+  orderId: string;
+  productId: string;
+  qty: number;
+  image: string;
+  price: string;
+};
+
 export type Cart = z.infer<typeof insertCartSchema>;
 export type CartItem = z.infer<typeof cartItemSchema>;
 export type ShippingAddress = z.infer<typeof shippingAddressSchema>;
