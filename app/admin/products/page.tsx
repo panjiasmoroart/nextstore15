@@ -73,7 +73,7 @@ const AdminProductsPage = async (props: {
               <TableCell>{formatId(product.id)}</TableCell>
               <TableCell>{product.name}</TableCell>
               <TableCell className="text-right">
-                {formatCurrency(product.price)}
+                {formatCurrency(Number(product.price))}
               </TableCell>
               <TableCell>{product.category}</TableCell>
               <TableCell>{product.stock}</TableCell>
