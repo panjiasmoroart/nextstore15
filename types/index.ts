@@ -59,6 +59,20 @@ export type OrderAdmin = {
   };
 };
 
+export type UserAdmin = {
+  id: string;
+  createdAt: Date;
+  paymentMethod: string | null;
+  name: string;
+  image: string | null;
+  role: string;
+  address: JsonValue | null;
+  email: string;
+  emailVerified: Date | null;
+  password: string | null;
+  updatedAt: Date;
+};
+
 export type Cart = z.infer<typeof insertCartSchema>;
 export type CartItem = z.infer<typeof cartItemSchema>;
 export type ShippingAddress = z.infer<typeof shippingAddressSchema>;

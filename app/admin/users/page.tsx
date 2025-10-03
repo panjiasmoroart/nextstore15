@@ -15,6 +15,7 @@ import Pagination from "@/components/shared/pagination";
 import { Badge } from "@/components/ui/badge";
 import DeleteDialog from "@/components/shared/delete-dialog";
 import { requireAdmin } from "@/lib/auth-guard";
+import { UserAdmin } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Users",
@@ -59,7 +60,7 @@ const AdminUserPage = async (props: {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users.data.map((user) => (
+            {users.data.map((user: UserAdmin) => (
               <TableRow key={user.id}>
                 <TableCell>{formatId(user.id)}</TableCell>
                 <TableCell>{user.name}</TableCell>
