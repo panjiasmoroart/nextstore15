@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import Charts from "./chart";
 import { requireAdmin } from "@/lib/auth-guard";
+import { OrderAdmin } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -114,7 +115,7 @@ const AdminOverviewPage = async () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {summary.latestSales.map((order) => (
+                {summary.latestSales.map((order: OrderAdmin) => (
                   <TableRow key={order.id}>
                     <TableCell>
                       {order?.user?.name ? order.user.name : "Deleted User"}
