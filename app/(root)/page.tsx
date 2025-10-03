@@ -14,7 +14,7 @@ const Homepage = async () => {
   const parseFeaturedProducts = featuredProducts.map((product) => ({
     ...product,
     price: Number(product.price),
-    rating: product.rating,
+    rating: product.rating.toString(),
   }));
 
   return (
