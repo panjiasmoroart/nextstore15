@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { cartItemSchema, insertCartSchema, insertOrderItemSchema, insertOrderSchema, insertProductSchema, paymentResultSchema, shippingAddressSchema } from '@/lib/validators';
 import { Prisma } from "@prisma/client";
+import { JsonValue } from '@prisma/client/runtime/library';
 
 export type ProductPayload = Prisma.ProductGetPayload<{}>;
 
@@ -36,6 +37,26 @@ export type DBOrderItem = {
   qty: number;
   image: string;
   price: string;
+};
+
+export type OrderAdmin = {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  shippingAddress: JsonValue;
+  paymentMethod: string;
+  paymentResult: JsonValue | null;
+  isPaid: boolean;
+  paidAt: Date | null;
+  isDelivered: boolean;
+  deliveredAt: Date | null;
+  itemsPrice: string;
+  totalPrice: string;
+  shippingPrice: string;
+  taxPrice: string;
+  user: {
+    name: string;
+  };
 };
 
 export type Cart = z.infer<typeof insertCartSchema>;

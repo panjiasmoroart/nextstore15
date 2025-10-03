@@ -14,6 +14,7 @@ import Link from "next/link";
 import { requireAdmin } from "@/lib/auth-guard";
 import Pagination from "@/components/shared/pagination";
 import DeleteDialog from "@/components/shared/delete-dialog";
+import { OrderAdmin } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Orders",
@@ -61,7 +62,7 @@ const AdminOrdersPage = async (props: {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {orders.data.map((order) => (
+            {orders.data.map((order: OrderAdmin) => (
               <TableRow key={order.id}>
                 <TableCell>{formatId(order.id)}</TableCell>
                 <TableCell>
