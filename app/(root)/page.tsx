@@ -13,7 +13,7 @@ const Homepage = async () => {
 
   const parseFeaturedProducts = featuredProducts.map((product) => ({
     ...product,
-    price: parseFloat(product.price),
+    price: Number(product.price),
     rating: product.rating,
   }));
 

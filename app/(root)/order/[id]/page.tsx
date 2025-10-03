@@ -3,7 +3,7 @@ import { getOrderById } from "@/lib/actions/order.actions";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import OrderDetailsTable from "./order-details-table";
-import { OrderItem, ShippingAddress } from "@/types";
+import { ShippingAddress } from "@/types";
 
 export const metadata: Metadata = {
   title: "Order Details",
