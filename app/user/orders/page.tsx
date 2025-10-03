@@ -12,6 +12,7 @@ import {
 import { formatCurrency, formatDateTime, formatId } from "@/lib/utils";
 import Link from "next/link";
 import Pagination from "@/components/shared/pagination";
+import { JsonValue } from "@prisma/client/runtime/library";
 
 export const metadata: Metadata = {
   title: "My Orders",
@@ -43,31 +44,48 @@ const OrdersPage = async (props: {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {orders.data.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>{formatId(order.id)}</TableCell>
-                <TableCell>
-                  {formatDateTime(order.createdAt).dateTime}
-                </TableCell>
-                <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
-                <TableCell>
-                  {order.isPaid && order.paidAt
-                    ? formatDateTime(order.paidAt).dateTime
-                    : "Not Paid"}
-                </TableCell>
-                <TableCell>
-                  {order.isDelivered && order.deliveredAt
-                    ? formatDateTime(order.deliveredAt).dateTime
-                    : "Not Delivered"}
-                </TableCell>
-                <TableCell>{order.paymentMethod}</TableCell>
-                <TableCell>
-                  <Link href={`/order/${order.id}`}>
-                    <span className="px-2">Details</span>
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
+            {orders.data.map(
+              (order: {
+                id: string;
+                userId: string;
+                createdAt: Date;
+                shippingAddress: JsonValue;
+                paymentMethod: string;
+                paymentResult: JsonValue | null;
+                isPaid: boolean;
+                paidAt: Date | null;
+                isDelivered: boolean;
+                deliveredAt: Date | null;
+                itemsPrice: string;
+                totalPrice: string;
+                shippingPrice: string;
+                taxPrice: string;
+              }) => (
+                <TableRow key={order.id}>
+                  <TableCell>{formatId(order.id)}</TableCell>
+                  <TableCell>
+                    {formatDateTime(order.createdAt).dateTime}
+                  </TableCell>
+                  <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
+                  <TableCell>
+                    {order.isPaid && order.paidAt
+                      ? formatDateTime(order.paidAt).dateTime
+                      : "Not Paid"}
+                  </TableCell>
+                  <TableCell>
+                    {order.isDelivered && order.deliveredAt
+                      ? formatDateTime(order.deliveredAt).dateTime
+                      : "Not Delivered"}
+                  </TableCell>
+                  <TableCell>{order.paymentMethod}</TableCell>
+                  <TableCell>
+                    <Link href={`/order/${order.id}`}>
+                      <span className="px-2">Details</span>
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              )
+            )}
           </TableBody>
         </Table>
         {orders.totalPages > 1 && (
