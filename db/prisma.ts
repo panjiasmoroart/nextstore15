@@ -11,6 +11,7 @@ const adapter = new PrismaNeon({ connectionString });
 
 export const prisma = new PrismaClient({ adapter }).$extends({
   result: {
+    user: {},
     product: {
       price: {
         compute(product: Prisma.ProductGetPayload<{}>) {
