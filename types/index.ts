@@ -8,6 +8,7 @@ export type ProductPayload = Prisma.ProductGetPayload<{}>;
 export type Product = z.infer<typeof insertProductSchema> & {
   id: string;
   rating: string;
+  // for rating
   numReviews: number;
   createdAt: Date;
 };
