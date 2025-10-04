@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { StarIcon } from "lucide-react";
+import { createUpdateReview } from "@/lib/actions/review.actions";
 
 const ReviewForm = ({
   userId,
@@ -59,7 +60,15 @@ const ReviewForm = ({
   // Submit Form Handler
   const onSubmit: SubmitHandler<z.infer<typeof insertReviewSchema>> = async (
     values
-  ) => {};
+  ) => {
+    const res = await createUpdateReview({ ...values, productId });
+
+    if (!res?.success) {
+      toast.error(res?.message);
+    }
+
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -136,6 +145,16 @@ const ReviewForm = ({
                 }}
               />
             </div>
+            <DialogFooter>
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>
