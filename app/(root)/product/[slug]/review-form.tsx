@@ -43,7 +43,7 @@ const ReviewForm = ({
 }: {
   userId: string;
   productId: string;
-  onReviewSubmitted?: () => void;
+  onReviewSubmitted: () => void;
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -54,6 +54,9 @@ const ReviewForm = ({
 
   // Open Form Handler
   const handleOpenForm = async () => {
+    form.setValue("productId", productId);
+    form.setValue("userId", userId);
+
     setOpen(true);
   };
 
@@ -68,6 +71,10 @@ const ReviewForm = ({
     }
 
     setOpen(false);
+
+    onReviewSubmitted();
+
+    toast.success(res.message);
   };
 
   return (
