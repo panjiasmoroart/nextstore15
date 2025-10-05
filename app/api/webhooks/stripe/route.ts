@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 export async function POST(req: NextRequest) {
-  console.log('test webhook')
   // Build the webhook event
   const event = await Stripe.webhooks.constructEvent(
     await req.text(),
