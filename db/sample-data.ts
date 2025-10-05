@@ -1,6 +1,6 @@
 import { SAMPLE_ADMIN_PASS, SAMPLE_USER_PASS } from '@/lib/constants';
 import { hashSync } from 'bcrypt-ts-edge';
-
+//
 const sampleData = {
   users: [
     {
