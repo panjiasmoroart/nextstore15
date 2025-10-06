@@ -2,9 +2,10 @@ import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/db/prisma';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { compareSync } from 'bcrypt-ts-edge';
+// import { compareSync } from 'bcrypt-ts-edge';
 import { cookies } from 'next/headers';
 import { authConfig } from './auth.config';
+import { compare } from './lib/encrypt';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
@@ -34,7 +35,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         // Check if user exists and if the password matches
         if (user && user.password) {
-          const isMatch = await compareSync(
+          const isMatch = await compare(
             credentials.password as string,
             user.password
           );
